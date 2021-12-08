@@ -35,7 +35,7 @@ def start(message):
         #if message.text == 'Завершить':
         bot.send_message(message.chat.id, '\U0001F31F До новых встреч! \U0001F31F'
                                           '\nТы всегда можешь вернуться, нажав /start')
-        bot.stop_polling()
+        #bot.stop_polling()
 
     # именинник
     @bot.callback_query_handler(lambda c: c.data == "data_2")
@@ -364,7 +364,7 @@ def start(message):
                     elif cid_call == "no":
                         bot.send_message(c.message.chat.id, "\U0001F389 Готово! \U0001F389"
                                                             "\nЕсли захочешь вернуться, просто нажми на /start")
-                        bot.stop_polling()
+                        #bot.stop_polling()
 
              except IndexError:
                 bot.send_message(message.chat.id, "Будь внимательнее: чтобы найти вишлист, нам нужны имя и фамилия. Попробуй ещё раз \U0001F917")
