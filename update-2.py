@@ -11,8 +11,6 @@ bot = telebot.TeleBot('5094415944:AAERFjqMlsWWWtFKw4pwHsXMPMl8jUOsAdk')
 # команда start
 @bot.message_handler(commands=['start'])
 def start(message):
-    # global your_id
-    # your_id = message.from_user.id
 
     # создаем клавиатуру внизу
     down = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -377,34 +375,4 @@ def build_menu(buttons, n_cols, header_buttons=None, footer_buttons=None):
         menu.append(footer_buttons)
     return menu
 
-# # чтобы получать список подарков
-# def list_of_presents(req, id):
-#     connect = sqlite3.connect('wishlist.db', check_same_thread=False)
-#     cursor = connect.cursor()
-#
-#     cursor.execute(req, (id,))
-#
-#     all_res = cursor.fetchall()
-#     connect.commit()
-#
-#     # добавляем подарки в список, чтобы было корректно для кнопок
-#     list_of_present = []
-#     for i in range(len(all_res)):
-#         list_of_present.append(str(all_res[i][0]))
-#
-#     return list_of_present
-
-
-bot.polling()
-#bot.infinity_polling()
-#
-#
-# @dp.message_handler(content_types = ['text'])
-# async def text(message: types.Message):
-#     if message.text.lower() == "пока":
-#         await bot.send_message(message.chat.id, "Жаль, что уже прощаемся")
-#
-#
-#
-# # чтобы бот работал
-# executor.start_polling(dp)
+bot.polling(none_stop=True)
