@@ -35,7 +35,6 @@ def start(message):
         #if message.text == 'Завершить':
         bot.send_message(message.chat.id, '\U0001F31F До новых встреч! \U0001F31F'
                                           '\nТы всегда можешь вернуться, нажав /start')
-        #bot.stop_polling()
 
     # именинник
     @bot.callback_query_handler(lambda c: c.data == "data_2")
@@ -152,9 +151,7 @@ def start(message):
                                                callback_data="author_add")
                 but_del = InlineKeyboardButton("Удалить",
                                                callback_data="author_del")
-                but_ch = InlineKeyboardButton("Изменить",
-                                              callback_data="author_ch")
-                whattodo.add(but_add, but_del, but_ch)
+                whattodo.add(but_add, but_del)
                 bot.send_message(call.message.chat.id, "А теперь выбери, что нужно сделать с твоимии подарками", reply_markup=whattodo)
 
                 cursor.execute("SELECT present FROM wish_list where id=?", (call.message.chat.id,))
@@ -242,42 +239,7 @@ def start(message):
                         elif cid_call == "no":
                             bot.send_message(c.message.chat.id, "Готово! "
                                                                 "Если захочешь вернуться, просто нажми на /start")
-
-            @bot.callback_query_handler(lambda c: c.data == "author_ch")
-            def ch_reaction(call: types.CallbackQuery):
-                bot.answer_callback_query(call.id)
-                #list_of_present = list_of_presents("SELECT present FROM wish_list where id=?", call.message.chat.id)
-                button_list = []
-                for each in list_of_present:
-                    button_list.append(InlineKeyboardButton(each, callback_data=each))
-                reply_markup = InlineKeyboardMarkup(
-                    build_menu(button_list, n_cols=1))  # n_cols = 1 для одного столбца и нескольких строк
-                bot.send_message(call.message.chat.id, text='Какой подарок ты хочешь изменить?',
-                                 reply_markup=reply_markup)
-
-                @bot.callback_query_handler(func=lambda c: True)
-                def ch_reaction2(c: types.CallbackQuery):
-                    bot.answer_callback_query(c.id)
-                    global change_cbdata
-                    change_cbdata = c.data  # получаем callback_data у кнопки, которая была нажата
-                    #if change_cbdata != "no":
-                    bot.send_message(c.message.chat.id, f"Был выбран подарок: {change_cbdata}")
-                    # заменяем на новое значение
-                    bot.send_message(call.message.chat.id, "На что ты хочешь его заменить?")
-                    bot.register_next_step_handler(call.message, changing)
-
-                @bot.message_handler(content_types=['text'])
-                def changing(message):
-                    if message.text == 'Завершить':
-                        ending(message)
-                    else:
-                        req = "UPDATE wish_list SET present = ? where present = ?"
-                        cursor.execute(req, (message.text, change_cbdata,))
-                        connect.commit()
-                        bot.send_message(message.chat.id, "Твой подарок изменен")
-
-                        ending(message)
-
+                        
     #гость
     @bot.callback_query_handler(lambda c: c.data == "data_1")
     def give_reaction(call: types.CallbackQuery):
