@@ -362,6 +362,7 @@ def start(message):
                     elif cid_call == "no":
                         bot.send_message(c.message.chat.id, "\U0001F389 Готово! \U0001F389"
                                                             "\nЕсли захочешь вернуться, просто нажми на /start")
+                        bot.stop_polling()
 
              except IndexError:
                 bot.send_message(message.chat.id, "Будь внимательнее: чтобы найти вишлист, нам нужны имя и фамилия. Попробуй ещё раз \U0001F917")
