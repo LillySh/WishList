@@ -223,6 +223,8 @@ def start(message):
                             #keyboard = InlineKeyboardMarkup()
                             bot.send_message(c.message.chat.id, f"Был выбран подарок: {cid_call}") #,reply_markup=keyboard)
                             # удаляем из базы данных
+                            connect = sqlite3.connect('wishlist.db', check_same_thread=False)
+                            cursor = connect.cursor()
                             req = "Delete from wish_list where present = ?"
                             cursor.execute(req, (cid_call,))
                             connect.commit()
