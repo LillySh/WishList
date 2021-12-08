@@ -1,1 +1,1 @@
-web: python3 Botya.py
+worker: python3 Botya.py
