@@ -3,11 +3,12 @@ import telebot
 from telebot import types
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 import sqlite3
+import os
 
 # bot на telebot
 
-bot = telebot.TeleBot(TOKEN)
-
+token = os.getenv("TOKEN")
+bot = telebot.TeleBot(token)
 
 # команда start
 @bot.message_handler(commands=['start'])
