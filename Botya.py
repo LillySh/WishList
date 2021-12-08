@@ -5,7 +5,7 @@ from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 import sqlite3
 
 # bot на telebot
-TOKEN = ''
+
 bot = telebot.TeleBot(TOKEN)
 
 
